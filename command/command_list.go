@@ -2,27 +2,30 @@ package command
 
 import(
   "regexp"
-
-  "github.com/thoj/go-ircevent"
 )
 
 var commands = map[string]*Command{
-  "hello" : &Command{
-    Pattern: regexp.MustCompile(`hello`),
-    Description: "Say hello",
-    UsePrefix: false,
-    Function: func(event *irc.Event, ircobj *irc.Connection){
-      ircobj.Privmsg(event.Arguments[0], "Hello "+event.Nick)
-    },
+  "start" : &Command{
+    Pattern: regexp.MustCompile(`^ +start$`),
+    Description: "Démarre une nouvelle partie de Loup Garou",
+    UsePrefix: true,
+    ShowInHelp: true,
+    Function: Start,
   },
 
-  "up" : &Command{
-    Pattern: regexp.MustCompile(`^ +up`),
-    Description: "Yup",
+  "join" : &Command{
+    Pattern: regexp.MustCompile(`^ *join$`),
+    Description: "Rejoindre une partie en cours",
     UsePrefix: true,
-    Function: func(event *irc.Event, ircobj *irc.Connection){
-      ircobj.Privmsg(event.Arguments[0], "Yup")
-    },
+    ShowInHelp: true,
+    Function: Register,
+  },
+  "launch" : &Command{
+    Pattern: regexp.MustCompile(`^ +launch$`),
+    Description: "Clos la phase d'inscription",
+    UsePrefix: true,
+    ShowInHelp: true,
+    Function: Launch,
   },
 }
 
@@ -31,6 +34,7 @@ func init(){
     Pattern: regexp.MustCompile(`^ +help`),
     Description: "Show help",
     UsePrefix: true,
+    ShowInHelp: true,
     Function: Help,
   }
 }

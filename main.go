@@ -12,6 +12,7 @@ import (
 func main() {
     var a chan bool
     ircobj := irc.IRC(config.E["BOT_NAME"], config.E["BOT_NAME"])
+    config.IRC = ircobj
     log.Println("Connecting to "+config.E["SERVER"]+" with username "+config.E["BOT_NAME"]+"...")
 
     ircobj.AddCallback("001", func(event *irc.Event){

@@ -18,6 +18,7 @@ type Command struct {
   Pattern *regexp.Regexp
   Description string
   UsePrefix bool
+  ShowInHelp bool
   Function func(*irc.Event, *irc.Connection)
 }
 
@@ -53,7 +54,9 @@ func ListCommands() string{
   fmt.Fprintln(w, "Command\tDescription\t")
   fmt.Fprintln(w, "\t\t")
   for commandIndex, command := range commands {
-    fmt.Fprintln(w, commandIndex+"\t"+ command.Description+"\t")
+    if(command.ShowInHelp){
+      fmt.Fprintln(w, commandIndex+"\t"+ command.Description+"\t")
+    }
   }
 
   w.Flush()
