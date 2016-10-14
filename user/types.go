@@ -67,3 +67,15 @@ func SetType(users []*User, from int, to int){
   }
   users[a].Type = to
 }
+
+func GetMembersOf(users []*User, group int) []*User{
+  var members []*User
+
+  for _, user := range users {
+    if user.Type == group {
+      members = append(members, user)
+    }
+  }
+
+  return members
+}

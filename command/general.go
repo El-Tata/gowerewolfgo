@@ -3,6 +3,7 @@ package command
 import (
   "os"
 
+  "github.com/johnsudaar/gowerewolfgo/config"
   "github.com/johnsudaar/gowerewolfgo/game"
 
   "github.com/thoj/go-ircevent"
@@ -14,6 +15,7 @@ func Start(event *irc.Event, ircobj *irc.Connection){
     ircobj.Privmsg(event.Arguments[0], err.Error())
   } else {
     ircobj.Privmsg(event.Arguments[0], "Nouvelle partie lancée par : "+event.Nick)
+    ircobj.Privmsg(event.Arguments[0], "Tapez "+config.E["PREFIX"]+" join pour rejoindre")
     if err := game.RegisterUser(event.Nick); err != nil {
       ircobj.Privmsg(event.Arguments[0], "J'ai été codé par un débile. Allez j'me casse")
       os.Exit(0)

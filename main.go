@@ -7,6 +7,7 @@ import (
 
     "github.com/johnsudaar/gowerewolfgo/config"
     "github.com/johnsudaar/gowerewolfgo/command"
+    "github.com/johnsudaar/gowerewolfgo/game"
 )
 
 func main() {
@@ -25,11 +26,15 @@ func main() {
 
     ircobj.AddCallback("PRIVMSG", func(event *irc.Event){
         go func(event *irc.Event){
-            log.Println("New message from "+event.Nick+" ("+event.Arguments[0]+"): "+event.Message())
-            if command.RunCommand(event, ircobj) {
-                log.Println("Command launched")
+            if event.Arguments[0] == config.E["BOT_NAME"] {
+                game.HandleMP(event);
             } else {
-                log.Println("Unknown command")
+                log.Println("New message from "+event.Nick+" ("+event.Arguments[0]+"): "+event.Message())
+                if command.RunCommand(event, ircobj) {
+                    log.Println("Command launched")
+                } else {
+                    log.Println("Unknown command")
+                }
             }
         }(event)
     })

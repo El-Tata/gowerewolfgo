@@ -7,16 +7,12 @@ import(
   "github.com/johnsudaar/gowerewolfgo/user"
 
 )
-const (
-  NOT_LAUNCHED = iota
-  REGISTER
-  START_OF_NIGHT
-)
 
 var phase int = NOT_LAUNCHED
 var channel string
 var users []*user.User
 var launcher string
+var turn int
 
 func HasStarted() bool {
   return phase == NOT_LAUNCHED
@@ -32,6 +28,7 @@ func StartGame(c string, u string) error {
     launcher = u
     channel = c
     users = []*user.User {}
+    turn = 1
     return nil
   } else {
     return errors.New("La partie à déjà été lancée par "+launcher)
@@ -65,6 +62,7 @@ func Launch() error{
       for _, user := range users {
         user.SendType(config.IRC)
       }
+      NextPhase()
       return nil
     }
   } else {
