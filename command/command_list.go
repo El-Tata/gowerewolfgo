@@ -27,6 +27,20 @@ var commands = map[string]*Command{
     ShowInHelp: true,
     Function: Launch,
   },
+  "list" : &Command{
+    Pattern: regexp.MustCompile(`^ +list$`),
+    Description: "Liste les joueurs dans la partie",
+    UsePrefix: true,
+    ShowInHelp: true,
+    Function: List,
+  },
+  "vote" : &Command{
+    Pattern: regexp.MustCompile(`^ +vote`),
+    Description: "Permet de voter pour un joueur",
+    UsePrefix: true,
+    ShowInHelp: true,
+    Function: Vote,
+  },
 }
 
 func init(){

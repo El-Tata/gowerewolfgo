@@ -40,3 +40,19 @@ func Launch(event *irc.Event, ircobj * irc.Connection){
     ircobj.Privmsg(event.Arguments[0], err.Error())
   }
 }
+
+func List(event *irc.Event, ircobj * irc.Connection){
+  if game.Phase() == game.NOT_LAUNCHED {
+    ircobj.Privmsg(event.Arguments[0], "La partie n'a pas commencée")
+  } else {
+    ircobj.Privmsg(event.Arguments[0], "Liste des joueurs : ")
+    for _, user := range game.Users(){
+      ircobj.Privmsg(event.Arguments[0], " - "+user.Nick)
+    }
+  }
+}
+
+
+func Vote(event *irc.Event, ircobj *irc.Connection) {
+  game.Vote(event)
+}

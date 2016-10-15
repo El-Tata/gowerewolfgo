@@ -9,7 +9,7 @@ type User struct {
 }
 
 func (u *User) SendType(ircobj *irc.Connection) {
-  ircobj.Notice(u.Nick, "Vous etes un "+TypeString(u.Type))
+  ircobj.Privmsg(u.Nick, "Vous etes un "+TypeString(u.Type))
 }
 
 func GetUser(users []*User, nick string)*User{

@@ -25,8 +25,6 @@ func TypeString(a int) string {
     return "Loup Garou"
   case Seer:
     return "Voyante"
-  case Hunter:
-    return "Chasseur"
   case Witch:
     return "Sorciere"
   }
@@ -51,12 +49,8 @@ func DistributeTypes(users []*User){
     SetType(users, Villager, Seer)
   }
 
-  if count >= 7 {
+  if count >= 5 {
     SetType(users, Villager, Witch)
-  }
-
-  if count >= 9 {
-    SetType(users, Villager, Hunter)
   }
 }
 
